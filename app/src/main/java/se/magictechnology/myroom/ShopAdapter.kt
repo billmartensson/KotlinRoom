@@ -44,7 +44,12 @@ class ShopAdapter(ctx : Context) : RecyclerView.Adapter<ShopViewHolder>() {
 
         var currentItem = shoppingitems!![position]
 
-        holder.shoptext.text = currentItem.uid.toString()+" "+currentItem.shopName
+        var amountText = "VET EJ"
+        currentItem.shopAmount?.let {
+            amountText = it.toString()
+        }
+
+        holder.shoptext.text = currentItem.uid.toString()+" "+currentItem.shopName+" "+amountText
 
         holder.itemView.setOnClickListener {
             GlobalScope.launch(Dispatchers.IO) {

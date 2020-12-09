@@ -32,11 +32,16 @@ class MainActivity : AppCompatActivity() {
             val addtext = findViewById<EditText>(R.id.addET).text.toString()
 
             GlobalScope.launch(Dispatchers.IO) {
-                val addShop = ShopDB.ShoppingItem(shopName = addtext)
 
-                shopadapter.shopdb.shopdb.ShoppingDao().save(addShop)
+                findViewById<EditText>(R.id.amountET).text.toString().toIntOrNull()?.let {
+                    val addShop = ShopDB.ShoppingItem(shopName = addtext, shopAmount = it)
 
-                shopadapter.loadShopping()
+                    shopadapter.shopdb.shopdb.ShoppingDao().save(addShop)
+
+                    shopadapter.loadShopping()
+                }
+
+
             }
 
         }
@@ -44,6 +49,20 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+        // TESTAR HÄMTA SHOPPINGLISTOR
+        /*
+        val allTheLists = shopadapter.shopdb.shopdb.ShoppingDao().getListsWithItems()
+        for(thelist in allTheLists)
+        {
+            val listname = thelist.shoplist.shopListName
+
+            for(theitem in thelist.shopitems)
+            {
+                val itemname = theitem.shopName
+            }
+        }
+        */
 
 
 
